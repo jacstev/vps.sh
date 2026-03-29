@@ -1093,7 +1093,7 @@ iptables_panel() {
 		  echo "3. 모든 포트를 엽니다. 4. 모든 포트를 닫습니다."
 		  echo "------------------------"
 		  echo "5. IP 화이트리스트 6. IP 블랙리스트"
-		  echo "7. 지정된 IP 지우기"
+		  echo "7. 지정된 IP를 삭제합니다."
 		  echo "------------------------"
 		  echo "11. PING 허용 12. PING 비활성화"
 		  echo "------------------------"
@@ -1846,7 +1846,7 @@ check_waf_status() {
 	if grep -q "^\s*#\s*modsecurity on;" /home/web/nginx.conf; then
 		waf_status=""
 	elif grep -q "modsecurity on;" /home/web/nginx.conf; then
-		waf_status="WAF가 켜져 있습니다"
+		waf_status="WAF가 켜져 있습니다."
 	else
 		waf_status=""
 	fi
@@ -2667,7 +2667,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p tcp -d "$container_ip" -j DROP
 	fi
 
-	# 지정된 IP를 허용하는 규칙을 지웁니다.
+	# 특정 IP를 허용하는 규칙 지우기
 	if iptables -C DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -2686,7 +2686,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p udp -d "$container_ip" -j DROP
 	fi
 
-	# 지정된 IP를 허용하는 규칙을 지웁니다.
+	# 특정 IP를 허용하는 규칙 지우기
 	if iptables -C DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -2887,7 +2887,7 @@ while true; do
 			setup_docker_dir
 			check_disk_space $app_size /home/docker
 			while true; do
-				read -e -p "애플리케이션 외부 서비스 포트를 입력하고 Enter 키를 누르면 기본적으로 사용됩니다.${docker_port}포트:" app_port
+				read -e -p "애플리케이션 외부 서비스 포트를 입력하고 Enter를 누르면 기본적으로 사용됩니다.${docker_port}포트:" app_port
 				local app_port=${app_port:-${docker_port}}
 
 				if ss -tuln | grep -q ":$app_port "; then
@@ -3010,7 +3010,7 @@ docker_app_plus() {
 				check_disk_space $app_size /home/docker
 
 				while true; do
-					read -e -p "애플리케이션 외부 서비스 포트를 입력하고 Enter 키를 누르면 기본적으로 사용됩니다.${docker_port}포트:" app_port
+					read -e -p "애플리케이션 외부 서비스 포트를 입력하고 Enter를 누르면 기본적으로 사용됩니다.${docker_port}포트:" app_port
 					local app_port=${app_port:-${docker_port}}
 
 					if ss -tuln | grep -q ":$app_port "; then
@@ -3417,7 +3417,7 @@ ldnmp_web_on() {
 	  echo "당신의$webname건설되었습니다!"
 	  echo "https://$yuming"
 	  echo "------------------------"
-	  echo "$webname설치정보는 다음과 같습니다."
+	  echo "$webname설치 정보는 다음과 같습니다."
 
 }
 
@@ -3503,7 +3503,7 @@ ldnmp_Proxy() {
 	check_ip_and_get_access_port "$yuming"
 
 	if [ -z "$reverseproxy" ]; then
-		read -e -p "안티 세대 IP를 입력하십시오(기본값은 로컬 IP 127.0.0.1로 설정하려면 Enter를 누르십시오)." reverseproxy
+		read -e -p "세대 방지 IP를 입력하십시오(기본값은 로컬 IP 127.0.0.1로 설정하려면 Enter를 누르십시오)." reverseproxy
 		reverseproxy=${reverseproxy:-127.0.0.1}
 	fi
 
@@ -4100,7 +4100,7 @@ EOF
 
 	donlond_frp frps
 
-	# 생성된 정보를 출력
+	# 생성된 정보 출력
 	ip_address
 	echo "------------------------"
 	echo "클라이언트 배포에 필요한 매개변수"
@@ -4162,7 +4162,7 @@ remote_port = ${remote_port}
 
 EOF
 
-	# 생성된 정보를 출력
+	# 생성된 정보 출력
 	echo "제공하다$service_namefrpc.toml에 성공적으로 추가되었습니다."
 
 	docker restart frpc
@@ -4773,7 +4773,7 @@ linux_clean() {
 
 bbr_on() {
 
-# 커널 조정 모듈과의 충돌을 방지하기 위해 sysctl.d에 대한 통합 쓰기
+# 커널 튜닝 모듈과의 충돌을 방지하기 위해 sysctl.d에 대한 통합 쓰기
 local CONF="/etc/sysctl.d/99-kejilion-bbr.conf"
 mkdir -p /etc/sysctl.d
 echo "net.core.default_qdisc=fq" > "$CONF"
@@ -5802,7 +5802,7 @@ elrepo() {
 		  echo "영상 소개: https://www.bilibili.com/video/BV1mH4y1w7qA?t=529.2"
 		  echo "------------------------------------------------"
 		  echo "Red Hat 시리즈 배포판 CentOS/RedHat/Alma/Rocky/oracle만 지원"
-		  echo "Linux 커널을 업그레이드하면 시스템 성능과 보안이 향상될 수 있습니다. 가능하다면 시도해 보시고, 프로덕션 환경도 주의해서 업그레이드하시는 것을 추천드립니다!"
+		  echo "Linux 커널을 업그레이드하면 시스템 성능과 보안이 향상될 수 있습니다. 가능하다면 시도해 보시고, 프로덕션 환경을 주의해서 업그레이드하시는 것을 추천드립니다!"
 		  echo "------------------------------------------------"
 		  read -e -p "계속하시겠습니까? (예/아니요):" choice
 
@@ -5838,7 +5838,7 @@ clamav_freshclam() {
 
 clamav_scan() {
 	if [ $# -eq 0 ]; then
-		echo "스캔할 디렉터리를 지정하세요."
+		echo "스캔할 디렉터리를 지정하십시오."
 		return
 	fi
 
@@ -6322,7 +6322,7 @@ Kernel_optimize() {
 			  cd ~
 			  clear
 			  optimize_web_server
-			  send_stats "웹사이트 최적화 모델"
+			  send_stats "웹사이트 최적화 모드"
 			  ;;
 		  4)
 			  cd ~
@@ -7207,7 +7207,7 @@ disk_manager() {
 	send_stats "하드디스크 관리 기능"
 	while true; do
 		clear
-		echo "하드 드라이브 파티션 관리"
+		echo "하드 디스크 파티션 관리"
 		echo -e "${gl_huang}이 기능은 내부 테스트 중이므로 프로덕션 환경에서는 사용하면 안 됩니다.${gl_bai}"
 		echo "------------------------"
 		list_partitions
@@ -7386,7 +7386,7 @@ run_task() {
 	else
 		echo "동기화에 실패했습니다! 다음 사항을 확인하세요."
 		echo "1. 네트워크 연결이 정상인가요?"
-		echo "2. 원격 호스트에 접근할 수 있나요?"
+		echo "2. 원격 호스트에 접근 가능한지 여부"
 		echo "3. 인증정보가 정확합니까?"
 		echo "4. 로컬 및 원격 디렉터리에 올바른 액세스 권한이 있습니까?"
 	fi
@@ -8136,7 +8136,7 @@ docker_ssh_migration() {
 
 				mkdir -p "$original_path"
 				tar -xzf "$BACKUP_DIR/compose_project_${project_name}.tar.gz" -C "$original_path"
-				echo -e "${gl_lv}프로젝트 작성 [$project_name]는 다음 위치로 추출되었습니다.$original_path${gl_bai}"
+				echo -e "${gl_lv}프로젝트 작성 [$project_name]가 다음 위치로 추출되었습니다.$original_path${gl_bai}"
 
 				cd "$original_path" || return
 				docker compose down || true
@@ -8152,7 +8152,7 @@ docker_ssh_migration() {
 			[[ ! -f "$json" ]] && continue
 			has_container=true
 			container=$(basename "$json" | sed 's/_inspect.json//')
-			echo -e "${gl_lv}처리 용기:$container${gl_bai}"
+			echo -e "${gl_lv}처리용기:$container${gl_bai}"
 
 			# 컨테이너가 이미 존재하고 실행 중인지 확인하세요.
 			if docker ps --format '{{.Names}}' | grep -q "^${container}$"; then
@@ -8238,7 +8238,7 @@ docker_ssh_migration() {
 
 		echo -e "${gl_huang}백업 전송 중...${gl_bai}"
 		if [[ -z "$TARGET_PASS" ]]; then
-			# 키를 사용하여 로그인
+			# 키로 로그인
 			scp -P "$TARGET_PORT" -o StrictHostKeyChecking=no -r "$LATEST_TAR" "$TARGET_USER@$TARGET_IP:/tmp/"
 		fi
 
@@ -8786,7 +8786,7 @@ linux_Oracle() {
 		  1)
 			  clear
 			  echo "활성 스크립트: CPU 사용량 10-20% 메모리 사용량 20%"
-			  read -e -p "설치하시겠습니까? (예/아니요):" choice
+			  read -e -p "정말로 설치하시겠습니까? (예/아니요):" choice
 			  case "$choice" in
 				[Yy])
 
@@ -10413,7 +10413,7 @@ for name, provider in list(providers.items()):
             provider['api'] = detected_api
             api = detected_api
             changed = True
-            summary.append(f'🔁 {name}: 프로토콜이 자동으로 {Detected_api}({Detected_reason})로 수정되었습니다.')
+            summary.append(f'🔁 {name}: 프로토콜이 {Detected_api}({Detected_reason})로 자동 수정되었습니다.')
     except Exception as e:
         summary.append(f'⚠️ {name}: 프로토콜 감지 실패, 수정 건너뛰기 ({type(e).__name__}: {e})')
 
@@ -10796,7 +10796,7 @@ EOF
 			echo
 		done
 
-		# 4. 프로토콜 탐지(의미 없음)
+		# 4. 프로토콜 감지(의미 없음)
 		install curl >/dev/null 2>&1
 		openclaw_detect_api_protocol "$base_url" "$api_key"
 
@@ -10864,7 +10864,7 @@ EOF
 			openclaw models set "$provider_name/$default_model"
 			start_gateway
 			echo "✅ 완료! 모두$model_count로드된 모델"
-			echo "✅ 계약은 자동으로 다음과 같이 식별되었습니다.$DETECTED_API"
+			echo "✅ 프로토콜은 다음과 같이 자동으로 식별되었습니다.$DETECTED_API"
 		fi
 
 		break_end
@@ -11521,7 +11521,7 @@ PY
 				;;
 			3)
 				send_stats "OpenClaw API 삭제 취소"
-				echo "❌ 삭제 실패: 대체 모델이 없으며 원래 구성이 유지되었습니다."
+				echo "❌ 삭제 실패: 사용 가능한 대체 모델이 없으며 원래 구성이 유지되었습니다."
 				;;
 			*)
 				echo "❌ 삭제 실패: 구성 파일 구조 또는 로그 출력을 확인하세요."
@@ -11691,7 +11691,7 @@ PYTHON_EOF
 				fi
 			fi
 
-			echo "⚠️ 플러그인이 설치되었지만,plugins.allow의 동기화에 실패했습니다. 수동으로 확인하세요.$config_file"
+			echo "⚠️ 플러그인이 설치되었지만,plugins.allow의 동기화에 실패했습니다. 수동으로 확인하십시오:$config_file"
 			return 1
 		}
 
@@ -11802,7 +11802,7 @@ PYTHON_EOF
 
 			echo "1) 플러그인 설치/활성화"
 			echo "2) 플러그인 삭제/비활성화"
-			echo "0) 반환"
+			echo "0) 반품"
 			read -e -p "작업을 선택하십시오:" plugin_action
 
 			[ "$plugin_action" = "0" ] && break
@@ -11929,7 +11929,7 @@ PYTHON_EOF
 
 			echo "1) 설치 기술"
 			echo "2) 스킬 삭제"
-			echo "0) 반환"
+			echo "0) 반품"
 			read -e -p "작업을 선택하십시오:" skill_action
 
 			[ "$skill_action" = "0" ] && break
@@ -12235,14 +12235,14 @@ openclaw_json_get_bool() {
 					break_end
 					;;
 				2)
-					read -e -p "Feishu Robot이 수신한 연결 코드(예: NYA99R2F)를 입력하십시오(종료하려면 0을 입력하십시오):" code
+					read -e -p "Feishu Robot이 수신한 연결 코드(예: NYA99R2F)를 입력하십시오(종료하려면 0을 입력하십시오)." code
 					if [ "$code" = "0" ]; then continue; fi
 					if [ -z "$code" ]; then echo "오류: 연결 코드는 비워둘 수 없습니다."; sleep 1; continue; fi
 					openclaw pairing approve feishu "$code"
 					break_end
 					;;
 				3)
-					read -e -p "WhatsApp에서 수신한 연결 코드(예: NYA99R2F)를 입력하세요(종료하려면 0 입력)." code
+					read -e -p "WhatsApp에서 받은 연결 코드(예: NYA99R2F)를 입력하세요(종료하려면 0 입력)." code
 					if [ "$code" = "0" ]; then continue; fi
 					if [ -z "$code" ]; then echo "오류: 연결 코드는 비워둘 수 없습니다."; sleep 1; continue; fi
 					openclaw pairing approve whatsapp "$code"
@@ -12731,7 +12731,7 @@ EOF
 	}
 
 	openclaw_backup_delete_file() {
-		send_stats "OpenClaw 백업 파일 삭제"
+		send_stats "OpenClaw 삭제 백업 파일"
 		local backup_root backup_root_real user_input target_file target_path target_type
 		backup_root=$(openclaw_backup_root)
 
@@ -13085,7 +13085,7 @@ PY
 			echo ""
 			echo "QMD: qmd 명령을 사용하는 경량 인덱스(네트워크 제약 조건에 적합)"
 			echo "로컬: 임베딩 모델 파일에 따라 달라지는 로컬 벡터 검색"
-			echo "자동: 자동 추천(가용성 + 네트워크 감지 기준)"
+			echo "자동: 자동 추천(가용성 + 네트워크 감지 기반)"
 			echo "---------------------------------------"
 			echo "1. 자동 추천 및 적용"
 			echo "2. QMD를 수동으로 선택"
@@ -13527,7 +13527,7 @@ PY
 				openclaw onboard --install-daemon
 				break_end
 				;;
-			12) send_stats "상태 감지 및 복구"
+			12) send_stats "상태 감지 및 수리"
 				openclaw doctor --fix
 				send_stats "OpenClaw API 동기식 트리거링"
 				if sync_openclaw_api_models; then
@@ -13603,7 +13603,7 @@ while true; do
 	  echo -e "${gl_kjlan}-------------------------"
 	  echo -e "${gl_kjlan}21.  ${color21}VScode 웹 버전${gl_kjlan}22.  ${color22}UptimeKuma 모니터링 도구"
 	  echo -e "${gl_kjlan}23.  ${color23}메모 웹 메모${gl_kjlan}24.  ${color24}Webtop 원격 데스크톱 웹 버전${gl_huang}★${gl_bai}"
-	  echo -e "${gl_kjlan}25.  ${color25}Nextcloud 네트워크 디스크${gl_kjlan}26.  ${color26}QD-Today 예약된 작업 관리 프레임워크"
+	  echo -e "${gl_kjlan}25.  ${color25}Nextcloud 네트워크 디스크${gl_kjlan}26.  ${color26}QD-오늘 예약된 작업 관리 프레임워크"
 	  echo -e "${gl_kjlan}27.  ${color27}Dockge 컨테이너 스택 관리 패널${gl_kjlan}28.  ${color28}LibreSpeed ​​​​속도 테스트 도구"
 	  echo -e "${gl_kjlan}29.  ${color29}searxng 집계 검색 스테이션${gl_huang}★${gl_bai}                 ${gl_kjlan}30.  ${color30}PhotoPrism 개인 앨범 시스템"
 	  echo -e "${gl_kjlan}-------------------------"
@@ -13631,7 +13631,7 @@ while true; do
 	  echo -e "${gl_kjlan}67.  ${color67}ddns-go 동적 DNS 관리 도구${gl_huang}★${gl_bai}            ${gl_kjlan}68.  ${color68}AllinSSL 인증서 관리 플랫폼"
 	  echo -e "${gl_kjlan}69.  ${color69}SFTPGo 파일 전송 도구${gl_kjlan}70.  ${color70}AstrBot 챗봇 프레임워크"
 	  echo -e "${gl_kjlan}-------------------------"
-	  echo -e "${gl_kjlan}71.  ${color71}Navidrome 개인 음악 서버${gl_kjlan}72.  ${color72}비트워든 비밀번호 관리자${gl_huang}★${gl_bai}"
+	  echo -e "${gl_kjlan}71.  ${color71}Navidrome 개인 음악 서버${gl_kjlan}72.  ${color72}비트워드 비밀번호 관리자${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}73.  ${color73}LibreTV 개인 영화${gl_kjlan}74.  ${color74}MoonTV 개인 영화"
 	  echo -e "${gl_kjlan}75.  ${color75}멜로디 음악 마법사${gl_kjlan}76.  ${color76}온라인 DOS 오래된 게임"
 	  echo -e "${gl_kjlan}77.  ${color77}Thunder 오프라인 다운로드 도구${gl_kjlan}78.  ${color78}PandaWiki 지능형 문서 관리 시스템"
@@ -13881,7 +13881,7 @@ while true; do
 			check_docker_app
 			check_docker_image_update $docker_name
 			clear
-			echo -e "네자 모니터링$check_docker $update_status"
+			echo -e "나타 모니터링$check_docker $update_status"
 			echo "오픈 소스, 가볍고 사용하기 쉬운 서버 모니터링 및 운영 및 유지 관리 도구"
 			echo "공식 웹사이트 구축 문서: https://nezha.wiki/guide/dashboard.html"
 			if docker ps -a --format '{{.Names}}' 2>/dev/null | grep -q "$docker_name"; then
@@ -13993,7 +13993,7 @@ while true; do
 				1)
 					setup_docker_dir
 					check_disk_space 2 /home/docker
-					read -e -p "이메일 도메인 이름을 설정하십시오(예: mail.yuming.com):" yuming
+					read -e -p "이메일 도메인 이름을 설정하세요(예: mail.yuming.com):" yuming
 					mkdir -p /home/docker
 					echo "$yuming" > /home/docker/mail.txt
 					echo "------------------------"
@@ -14700,7 +14700,7 @@ while true; do
 
 
 		local docker_describe="포토프리즘은 매우 강력한 개인 사진 앨범 시스템입니다."
-		local docker_url="공식 홈페이지 소개 : https://www.photoprism.app/"
+		local docker_url="공식 홈페이지 소개: https://www.photoprism.app/"
 		local docker_use="echo \"계정: admin 비밀번호:$rootpasswd\""
 		local docker_passwd=""
 		local app_size="1"
@@ -15232,7 +15232,7 @@ while true; do
 
 		}
 
-		local docker_describe="OpenWebUI는 새로운 llama3 대규모 언어 모델에 연결되는 대규모 언어 모델 웹 페이지 프레임워크입니다."
+		local docker_describe="OpenWebUI는 새로운 llama3 대규모 언어 모델에 연결된 대규모 언어 모델 웹 페이지 프레임워크입니다."
 		local docker_url="공식 웹사이트 소개:${gh_https_url}github.com/open-webui/open-webui"
 		local docker_use="docker exec ollama ollama run llama3.2:1b"
 		local docker_passwd=""
@@ -17991,7 +17991,7 @@ env_menu() {
 		echo "=========== 시스템 환경 변수 관리 =========="
 		echo "현재 사용자:$USER"
 		echo "--------------------------------------"
-		echo "1. 현재 일반적으로 사용되는 환경변수를 확인한다"
+		echo "1. 현재 일반적으로 사용되는 환경변수를 확인하세요."
 		echo "2. ~/.bashrc 보기"
 		echo "3. ~/.profile 보기"
 		echo "4. ~/.bashrc 편집"
@@ -18411,7 +18411,7 @@ EOF
 
 				case "$choice" in
 				  1)
-					send_stats "1G 가상 메모리가 설정되었습니다"
+					send_stats "1G 가상 메모리가 설정되었습니다."
 					add_swap 1024
 
 					;;
@@ -19468,7 +19468,7 @@ run_commands_on_servers() {
 	# 추출된 정보를 배열로 변환
 	IFS=$'\n' read -r -d '' -a SERVER_ARRAY <<< "$SERVERS"
 
-	# 서버를 탐색하고 명령을 실행합니다.
+	# 서버를 순회하고 명령을 실행합니다.
 	for ((i=0; i<${#SERVER_ARRAY[@]}; i+=5)); do
 		local name=${SERVER_ARRAY[i]}
 		local hostname=${SERVER_ARRAY[i+1]}
@@ -19510,7 +19510,7 @@ while true; do
 	  echo -e "${gl_kjlan}일괄적으로 작업 실행${gl_bai}"
 	  echo -e "${gl_kjlan}11. ${gl_bai}기술 사자 스크립트 설치${gl_kjlan}12. ${gl_bai}시스템 업데이트${gl_kjlan}13. ${gl_bai}시스템 청소"
 	  echo -e "${gl_kjlan}14. ${gl_bai}도커 설치${gl_kjlan}15. ${gl_bai}BBR3 설치${gl_kjlan}16. ${gl_bai}1G 가상 메모리 설정"
-	  echo -e "${gl_kjlan}17. ${gl_bai}시간대를 상하이로 설정${gl_kjlan}18. ${gl_bai}모든 포트 열기${gl_kjlan}51. ${gl_bai}맞춤 지침"
+	  echo -e "${gl_kjlan}17. ${gl_bai}시간대를 상하이로 설정${gl_kjlan}18. ${gl_bai}모든 포트 열기${gl_kjlan}51. ${gl_bai}사용자 정의 지시어"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
 	  echo -e "${gl_kjlan}0.  ${gl_bai}메인 메뉴로 돌아가기"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
@@ -19627,7 +19627,7 @@ echo "------------------------"
 echo -e "${gl_zi}V.PS 월 6.9달러 도쿄 소프트뱅크 2코어 1G 메모리 20G 하드드라이브 월 1T 트래픽${gl_bai}"
 echo -e "${gl_bai}URL: https://vps.hosting/cart/tokyo-cloud-kvm-vps/?id=148&?affid=1355&?affid=1355${gl_bai}"
 echo "------------------------"
-echo -e "${gl_kjlan}더 인기 있는 VPS 혜택${gl_bai}"
+echo -e "${gl_kjlan}더 인기 있는 VPS 거래${gl_bai}"
 echo -e "${gl_bai}홈페이지: https://kejilion.pro/topvps/${gl_bai}"
 echo "------------------------"
 echo ""
@@ -19866,7 +19866,7 @@ done
 
 
 k_info() {
-send_stats "k 명령 참조 사용 사례"
+send_stats "k 명령 참조 예"
 echo "-------------------"
 echo "영상 소개: https://www.bilibili.com/video/BV1ib421E7it?t=0.1"
 echo "다음은 k 명령의 참조 사용 사례입니다."
@@ -19910,7 +19910,7 @@ echo "k 포트 닫기 gbdk 7800 |k 포트 7800 닫기"
 echo "릴리스 IP k fxip 127.0.0.0/8 |k 릴리스 IP 127.0.0.0/8"
 echo "IP 차단 k zzip 177.5.25.36 |k IP 177.5.25.36 차단"
 echo "명령 즐겨찾기 k 즐겨찾기 | k 명령 즐겨찾기"
-echo "애플리케이션 시장 관리 k app"
+echo "애플리케이션 시장관리 kapp"
 echo "신청번호의 빠른 관리 k app 26 | k 앱 1패널 | k 앱 npm"
 echo "Fail2ban 관리 k Fail2ban | 케이 F2B"
 echo "시스템 정보 표시 k 정보"
