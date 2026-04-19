@@ -1221,7 +1221,7 @@ iptables_panel() {
 add_swap() {
 	local new_swap=$1  # 获取传入的参数
 
-	# 取得目前系統中所有的 swap 分割區
+	# 取得目前系統中所有的 swap 分區
 	local swap_partitions=$(grep -E '^/dev/' /proc/swaps | awk '{print $1}')
 
 	# 遍歷並刪除所有的 swap 分割區
@@ -10305,7 +10305,7 @@ def rebind_defaults_before_delete(name):
         if ref_provider(val) == name:
             repl = get_replacement()
             if not repl:
-                summary.append(f'❌ {name}: {fk} 指向該 provider，但無可用替代模型，已中止刪除')
+                summary.append(f'❌ {name}: {fk} 指向该 provider，但无可用替代模型，已中止删除')
                 return False
             defaults[fk] = repl
             changed = True
@@ -10424,7 +10424,7 @@ for name, provider in list(providers.items()):
         if prompt_delete_provider(name):
             deleted = delete_provider_and_refs(name)
             if deleted:
-                send_stat('OpenClaw API删失败Provider-确认')
+                send_stat('OpenClaw API刪失敗Provider-確認')
                 summary.append(f'✅ {name}: 使用者已確認刪除該 provider 及全部相關模型引用')
         else:
             send_stat('OpenClaw API刪失敗Provider-拒絕')
@@ -10552,7 +10552,7 @@ PY
 		npm install -g openclaw@latest
 		openclaw onboard --install-daemon
 		openclaw config set tools.profile full
-		# 提示：修改配置後如需立即生效，可重新啟動 gateway：openclaw gateway restart
+		# 提示：修改配置后如需立即生效，可重启 gateway：openclaw gateway restart
 		configure_openclaw_session_policy
 		start_gateway
 		add_app_id
@@ -10770,7 +10770,7 @@ EOF
 
 	add-openclaw-provider-interactive() {
 		send_stats "OpenClaw API新增"
-		echo "=== 互動式新增 OpenClaw Provider (全量模型) ==="
+		echo "=== 互動式加入 OpenClaw Provider (全量模型) ==="
 
 		# 1. Provider 名稱
 		read -erp "請輸入 Provider 名稱 (如: deepseek):" provider_name
@@ -11337,7 +11337,7 @@ if api and api != current_api:
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
         f.write('\n')
-    print(f'✅ 已更新 provider {name} 協定: {current_api or "(unset)"} -> {api} ({reason})')
+    print(f'✅ 已更新 provider {name} 协议: {current_api or "(unset)"} -> {api} ({reason})')
 else:
     print(f'ℹ️ 無需更新：協議保持為 {current_api or api}')
 PY
@@ -12228,7 +12228,7 @@ openclaw_json_get_bool() {
 
 			case $bot_choice in
 				1)
-					read -e -p "请输入TG机器人收到的连接码 (例如 NYA99R2F)（输入 0 退出）： " code
+					read -e -p "請輸入TG機器人收到的連線碼 (例如 NYA99R2F)（輸入 0 退出）：" code
 					if [ "$code" = "0" ]; then continue; fi
 					if [ -z "$code" ]; then echo "錯誤：連接碼不能為空。"; sleep 1; continue; fi
 					openclaw pairing approve telegram "$code"
@@ -12351,7 +12351,7 @@ EOF
 		local file_path="$1"
 
 		echo "可使用以下方式下載備份檔："
-		echo "- 本地路径: $file_path"
+		echo "- 本地路徑:$file_path"
 		echo "- scp 範例: scp root@你的伺服器:$file_path ./"
 		echo "- 或使用 SFTP 用戶端下載"
 	}
@@ -12412,7 +12412,7 @@ EOF
 		[ -f "$workspace_dir/MEMORY.md" ] && cp -a "$workspace_dir/MEMORY.md" "$tmp_payload/"
 		[ -d "$workspace_dir/memory" ] && cp -a "$workspace_dir/memory" "$tmp_payload/"
 
-		read -e -p "是否附带 AGENTS/USER/SOUL/TOOLS 文件？ (y/N):" include_optional
+		read -e -p "是否附帶 AGENTS/USER/SOUL/TOOLS 檔案？ (y/N):" include_optional
 		if [[ "$include_optional" =~ ^[Yy]$ ]]; then
 			for f in AGENTS.md USER.md SOUL.md TOOLS.md; do
 				[ -f "$workspace_dir/$f" ] && cp -a "$workspace_dir/$f" "$tmp_payload/"
@@ -12442,7 +12442,7 @@ EOF
 		local file_input file_path backup_root
 		echo "$prompt_text" >&2
 
-		echo "可先透過 scp/sftp 上傳備份包到伺服器，再輸入路徑。" >&2
+		echo "可先通过 scp/sftp 上传备份包到服务器，再输入路径。" >&2
 		echo "scp 範例: scp /本地/備份包.tar.gz root@你的伺服器:/tmp/" >&2
 		echo "提示：輸入檔案名稱時預設在備份目錄中尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
 		read -e -p "請輸入備份檔名或路徑:" file_input
@@ -12486,7 +12486,7 @@ EOF
 		while IFS= read -r rel; do
 			[ -z "$rel" ] && continue
 			if ! openclaw_is_safe_relpath "$rel" || ! openclaw_restore_path_allowed memory "$rel"; then
-				echo "❌ 偵測到非法或越權路徑:$rel"
+				echo "❌ 检测到非法或越权路径: $rel"
 				invalid=1
 				break
 			fi
@@ -12601,7 +12601,7 @@ EOF
 		while IFS= read -r rel; do
 			[ -z "$rel" ] && continue
 			if ! openclaw_is_safe_relpath "$rel" || ! openclaw_restore_path_allowed project "$rel"; then
-				echo "❌ 偵測到非法或越權路徑:$rel"
+				echo "❌ 检测到非法或越权路径: $rel"
 				invalid=1
 				break
 			fi
@@ -13056,14 +13056,14 @@ PY
 			return 1
 		fi
 		echo "✅ 已設定 includeDefaultMemory=false"
-		echo "建議立即執行：openclaw memory index --force"
+		echo "建议立即执行：openclaw memory index --force"
 		read -e -p "是否立即執行 openclaw memory index --force？ (Y/n):" rebuild_choice
 		if [[ ! "$rebuild_choice" =~ ^[Nn]$ ]]; then
 			openclaw memory index --force
 			echo ""
 			openclaw_memory_render_status
 		else
-			echo "可稍後在記憶管理中查看狀態。"
+			echo "可稍后在记忆管理中查看状态。"
 		fi
 		break_end
 	}
@@ -13157,7 +13157,7 @@ PY
 			echo "未找到記憶文件。"
 			return 0
 		fi
-		echo "編號 | 相對路徑 | 大小 | 修改時間"
+		echo "编号 | 相对路径 | 大小 | 修改时间"
 		echo "---------------------------------------"
 		local i file rel size mtime
 		for i in "${!OPENCLAW_MEMORY_FILES[@]}"; do
@@ -18920,7 +18920,7 @@ EOF
 			  echo "TG-bot監控預警功能"
 			  echo "影片介紹: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
-			  echo "您需要設定tg機器人API和接收預警的用戶ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
+			  echo "您需要設定tg機器人API和接收預警的使用者ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
 			  echo "到達閾值後會向用戶發送預警訊息"
 			  echo -e "${gl_hui}-關於流量，重啟伺服器將重新計算-${gl_bai}"
 			  read -e -p "確定繼續嗎？ (Y/N):" choice
