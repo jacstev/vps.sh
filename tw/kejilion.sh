@@ -1221,7 +1221,7 @@ iptables_panel() {
 add_swap() {
 	local new_swap=$1  # 获取传入的参数
 
-	# 取得目前系統中所有的 swap 分區
+	# 取得目前系統中所有的 swap 分割區
 	local swap_partitions=$(grep -E '^/dev/' /proc/swaps | awk '{print $1}')
 
 	# 遍歷並刪除所有的 swap 分割區
@@ -1588,7 +1588,7 @@ certs_status() {
 				chmod 644 "$cert_file"
 				chmod 600 "$key_file"
 
-				# 識別目前證書類型並顯示
+				# 识别当前证书类型并显示
 				if [[ "$key_content" == *"EC PRIVATE KEY"* ]]; then
 					echo "偵測到 ECC 憑證已成功儲存。"
 				else
@@ -6110,7 +6110,7 @@ net.ipv4.tcp_slow_start_after_idle = 0"
 net.core.default_qdisc = $QDISC
 net.ipv4.tcp_congestion_control = $CC
 
-# ── TCP 緩衝區 ──
+# ── TCP 缓冲区 ──
 net.core.rmem_max = $RMEM_MAX
 net.core.wmem_max = $WMEM_MAX
 net.core.rmem_default = $(echo "$TCP_RMEM" | awk '{print $2}')
@@ -6281,7 +6281,7 @@ Kernel_optimize() {
 	  clear
 	  send_stats "Linux核心調優管理"
 	  local current_mode=$(grep "^# 模式:" /etc/sysctl.d/99-kejilion-optimize.conf 2>/dev/null | sed 's/# 模式: //' | awk -F'|' '{print $1}' | xargs)
-	  [ -z "$current_mode" ] && [ -f /etc/sysctl.d/99-network-optimize.conf ] && current_mode="自動調優模式"
+	  [ -z "$current_mode" ] && [ -f /etc/sysctl.d/99-network-optimize.conf ] && current_mode="自动调优模式"
 	  echo "Linux系統核心參數優化"
 	  if [ -n "$current_mode" ]; then
 		  echo -e "當前模式:${gl_lv}${current_mode}${gl_bai}"
@@ -6295,7 +6295,7 @@ Kernel_optimize() {
 	  echo -e "--------------------"
 	  echo -e "1. 高效能最佳化模式： 最大化系統效能，激進的記憶體和網路參數。"
 	  echo -e "2. 均衡最佳化模式： 在效能與資源消耗之間取得平衡，適合日常使用。"
-	  echo -e "3. 網站最佳化模式： 針對網站伺服器最佳化，超高並發連線佇列。"
+	  echo -e "3. 网站优化模式：       针对网站服务器优化，超高并发连接队列。"
 	  echo -e "4. 直播最佳化模式： 針對直播推流優化，UDP 緩衝區加大，減少延遲。"
 	  echo -e "5. 遊戲服最佳化模式： 針對遊戲伺服器最佳化，低延遲優先。"
 	  echo -e "6. 還原預設設定： 將系統設定還原為預設配置。"
@@ -7604,7 +7604,7 @@ linux_tools() {
   while true; do
 	  clear
 	  # send_stats "基礎工具"
-	  echo -e "基礎工具"
+	  echo -e "基础工具"
 
 	  tools=(
 		curl wget sudo socat htop iftop unzip tar tmux ffmpeg
@@ -7629,7 +7629,7 @@ linux_tools() {
 	  elif command -v pkg >/dev/null 2>&1; then
 		PM="pkg"
 	  else
-		echo "❌ 未識別的套件管理器"
+		echo "❌ 未识别的包管理器"
 		exit 1
 	  fi
 
@@ -10305,7 +10305,7 @@ def rebind_defaults_before_delete(name):
         if ref_provider(val) == name:
             repl = get_replacement()
             if not repl:
-                summary.append(f'❌ {name}: {fk} 指向该 provider，但无可用替代模型，已中止删除')
+                summary.append(f'❌ {name}: {fk} 指向該 provider，但無可用替代模型，已中止刪除')
                 return False
             defaults[fk] = repl
             changed = True
@@ -10552,7 +10552,7 @@ PY
 		npm install -g openclaw@latest
 		openclaw onboard --install-daemon
 		openclaw config set tools.profile full
-		# 提示：修改配置后如需立即生效，可重启 gateway：openclaw gateway restart
+		# 提示：修改配置後如需立即生效，可重新啟動 gateway：openclaw gateway restart
 		configure_openclaw_session_policy
 		start_gateway
 		add_app_id
@@ -10770,7 +10770,7 @@ EOF
 
 	add-openclaw-provider-interactive() {
 		send_stats "OpenClaw API新增"
-		echo "=== 互動式加入 OpenClaw Provider (全量模型) ==="
+		echo "=== 互動式新增 OpenClaw Provider (全量模型) ==="
 
 		# 1. Provider 名稱
 		read -erp "請輸入 Provider 名稱 (如: deepseek):" provider_name
@@ -11337,7 +11337,7 @@ if api and api != current_api:
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
         f.write('\n')
-    print(f'✅ 已更新 provider {name} 协议: {current_api or "(unset)"} -> {api} ({reason})')
+    print(f'✅ 已更新 provider {name} 協定: {current_api or "(unset)"} -> {api} ({reason})')
 else:
     print(f'ℹ️ 無需更新：協議保持為 {current_api or api}')
 PY
@@ -11887,7 +11887,7 @@ PYTHON_EOF
 			echo "====== 操作匯總 ======"
 			echo "✅ 成功:$success_list"
 			[ -n "$failed_list" ] && echo "❌ 失敗:$failed_list"
-			[ -n "$skipped_list" ] && echo "⏭️ 跳過:$skipped_list"
+			[ -n "$skipped_list" ] && echo "⏭️ 跳过:$skipped_list"
 
 			if [ "$changed" = true ]; then
 				echo "🔄 正在重啟 OpenClaw 服務以載入變更..."
@@ -12442,7 +12442,7 @@ EOF
 		local file_input file_path backup_root
 		echo "$prompt_text" >&2
 
-		echo "可先通过 scp/sftp 上传备份包到服务器，再输入路径。" >&2
+		echo "可先透過 scp/sftp 上傳備份包到伺服器，再輸入路徑。" >&2
 		echo "scp 範例: scp /本地/備份包.tar.gz root@你的伺服器:/tmp/" >&2
 		echo "提示：輸入檔案名稱時預設在備份目錄中尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
 		read -e -p "請輸入備份檔名或路徑:" file_input
@@ -12486,7 +12486,7 @@ EOF
 		while IFS= read -r rel; do
 			[ -z "$rel" ] && continue
 			if ! openclaw_is_safe_relpath "$rel" || ! openclaw_restore_path_allowed memory "$rel"; then
-				echo "❌ 检测到非法或越权路径: $rel"
+				echo "❌ 偵測到非法或越權路徑:$rel"
 				invalid=1
 				break
 			fi
@@ -12601,7 +12601,7 @@ EOF
 		while IFS= read -r rel; do
 			[ -z "$rel" ] && continue
 			if ! openclaw_is_safe_relpath "$rel" || ! openclaw_restore_path_allowed project "$rel"; then
-				echo "❌ 检测到非法或越权路径: $rel"
+				echo "❌ 偵測到非法或越權路徑:$rel"
 				invalid=1
 				break
 			fi
@@ -12644,9 +12644,9 @@ EOF
 	openclaw_backup_detect_type() {
 		local file_name="$1"
 		if [[ "$file_name" == openclaw-memory-full-*.tar.gz ]]; then
-			echo "記憶備份文件"
+			echo "记忆备份文件"
 		elif [[ "$file_name" == openclaw-project-*.tar.gz ]]; then
-			echo "專案備份文件"
+			echo "项目备份文件"
 		else
 			echo "其他備份文件"
 		fi
@@ -13056,14 +13056,14 @@ PY
 			return 1
 		fi
 		echo "✅ 已設定 includeDefaultMemory=false"
-		echo "建议立即执行：openclaw memory index --force"
+		echo "建議立即執行：openclaw memory index --force"
 		read -e -p "是否立即執行 openclaw memory index --force？ (Y/n):" rebuild_choice
 		if [[ ! "$rebuild_choice" =~ ^[Nn]$ ]]; then
 			openclaw memory index --force
 			echo ""
 			openclaw_memory_render_status
 		else
-			echo "可稍后在记忆管理中查看状态。"
+			echo "可稍後在記憶管理中查看狀態。"
 		fi
 		break_end
 	}
@@ -13157,7 +13157,7 @@ PY
 			echo "未找到記憶文件。"
 			return 0
 		fi
-		echo "编号 | 相对路径 | 大小 | 修改时间"
+		echo "編號 | 相對路徑 | 大小 | 修改時間"
 		echo "---------------------------------------"
 		local i file rel size mtime
 		for i in "${!OPENCLAW_MEMORY_FILES[@]}"; do
@@ -18920,7 +18920,7 @@ EOF
 			  echo "TG-bot監控預警功能"
 			  echo "影片介紹: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
-			  echo "您需要設定tg機器人API和接收預警的使用者ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
+			  echo "您需要設定tg機器人API和接收預警的用戶ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
 			  echo "到達閾值後會向用戶發送預警訊息"
 			  echo -e "${gl_hui}-關於流量，重啟伺服器將重新計算-${gl_bai}"
 			  read -e -p "確定繼續嗎？ (Y/N):" choice
