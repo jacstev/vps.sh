@@ -1221,7 +1221,7 @@ iptables_panel() {
 add_swap() {
 	local new_swap=$1  # 获取传入的参数
 
-	# 取得目前系統中所有的 swap 分區
+	# 取得目前系統中所有的 swap 分割區
 	local swap_partitions=$(grep -E '^/dev/' /proc/swaps | awk '{print $1}')
 
 	# 遍歷並刪除所有的 swap 分割區
@@ -1475,7 +1475,7 @@ install_ssltls_text() {
 
 
 add_ssl() {
-echo -e "${gl_huang}快速申請SSL證書，過期前自動續簽${gl_bai}"
+echo -e "${gl_huang}快速申請SSL證書，過期前自動續約${gl_bai}"
 yuming="${1:-}"
 if [ -z "$yuming" ]; then
 	add_yuming
@@ -3884,7 +3884,7 @@ ldnmp_web_status() {
 			2)
 				send_stats "克隆站點域名"
 				read -e -p "請輸入舊網域名稱:" oddyuming
-				read -e -p "請輸入新網域名稱:" yuming
+				read -e -p "請輸入新網域:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -3925,7 +3925,7 @@ ldnmp_web_status() {
 				send_stats "建立關聯站點"
 				echo -e "為現有的站點再關聯一個新網域用於訪問"
 				read -e -p "請輸入現有的網域名稱:" oddyuming
-				read -e -p "請輸入新網域名稱:" yuming
+				read -e -p "請輸入新網域:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -4779,7 +4779,7 @@ mkdir -p /etc/sysctl.d
 echo "net.core.default_qdisc=fq" > "$CONF"
 echo "net.ipv4.tcp_congestion_control=bbr" >> "$CONF"
 
-# 清理可能導致衝突的舊版本 sysctl.conf 殘留
+# 清理可能導致衝突的舊版 sysctl.conf 殘留
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf 2>/dev/null
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf 2>/dev/null
 
@@ -7091,7 +7091,7 @@ mount_partition() {
 		return 1
 	fi
 
-	echo "分區已成功掛載到$MOUNT_POINT"
+	echo "分割區已成功掛載到$MOUNT_POINT"
 
 	# 檢查 /etc/fstab 是否已經存在 UUID 或掛載點
 	if grep -qE "UUID=$UUID|[[:space:]]$MOUNT_POINT[[:space:]]" /etc/fstab; then
@@ -10400,7 +10400,7 @@ for name, provider in list(providers.items()):
     model_list = provider.get('models', [])
 
     if not base_url or not api_key or not isinstance(model_list, list) or not model_list:
-        summary.append(f'ℹ️ 跳過 {name}: 無 baseUrl/apiKey/models')
+        summary.append(f'ℹ️ 跳过 {name}: 无 baseUrl/apiKey/models')
         continue
 
     if api not in SUPPORTED_APIS:
@@ -10770,7 +10770,7 @@ EOF
 
 	add-openclaw-provider-interactive() {
 		send_stats "OpenClaw API新增"
-		echo "=== 互動式加入 OpenClaw Provider (全量模型) ==="
+		echo "=== 互動式新增 OpenClaw Provider (全量模型) ==="
 
 		# 1. Provider 名稱
 		read -erp "請輸入 Provider 名稱 (如: deepseek):" provider_name
@@ -10796,7 +10796,7 @@ EOF
 			echo
 		done
 
-		# 4. 協議探測（無感）
+		# 4. 协议探测（无感）
 		install curl >/dev/null 2>&1
 		openclaw_detect_api_protocol "$base_url" "$api_key"
 
@@ -11250,7 +11250,7 @@ PY2
 			echo "❌ 同步失敗：provider 配置不完整或類型不支持"
 			;;
 		4)
-			echo "❌ 同步失敗：上游 /models 請求失敗"
+			echo "❌ 同步失败：上游 /models 请求失败"
 			;;
 		5)
 			echo "❌ 同步失敗：上游模型為空或同步後無可用模型"
@@ -11353,7 +11353,7 @@ fix-openclaw-provider-protocol-interactive() {
 		return 1
 	fi
 
-	read -erp "請輸入要修復協定的 API 名稱(provider):" provider_name
+	read -erp "请输入要修复协议的 API 名称(provider): " provider_name
 	if [ -z "$provider_name" ]; then
 		echo "❌ provider 名稱不能為空"
 		break_end
@@ -11970,7 +11970,7 @@ PYTHON_EOF
 					fi
 
 					if [ "$skill_found" = true ]; then
-						read -e -p "技能 [$skill_name] 已安裝，是否重新安裝？ (y/N):" reinstall
+						read -e -p "技能 [$skill_name] 已安装，是否重新安装？ (y/N):" reinstall
 						if [[ ! "$reinstall" =~ ^[Yy]$ ]]; then
 							skipped_list="$skipped_list $skill_name"
 							continue
@@ -12242,7 +12242,7 @@ openclaw_json_get_bool() {
 					break_end
 					;;
 				3)
-					read -e -p "請輸入WhatsApp收到的連接碼 (例如 NYA99R2F)（輸入 0 退出）：" code
+					read -e -p "請輸入WhatsApp收到的連線碼 (例如 NYA99R2F)（輸入 0 退出）：" code
 					if [ "$code" = "0" ]; then continue; fi
 					if [ -z "$code" ]; then echo "錯誤：連接碼不能為空。"; sleep 1; continue; fi
 					openclaw pairing approve whatsapp "$code"
@@ -12377,7 +12377,7 @@ EOF
 		local real_type
 		real_type=$(grep '^TYPE=' "$pkg_dir/backup.meta" | head -n1 | cut -d'=' -f2-)
 		if [ "$real_type" != "$expected_type" ]; then
-			echo "❌ 備份類型不匹配，期望:$expected_type，實際: ${real_type:-未知}"
+			echo "❌ 备份类型不匹配，期望: $expected_type，實際: ${real_type:-未知}"
 			return 1
 		fi
 
@@ -12444,7 +12444,7 @@ EOF
 
 		echo "可先透過 scp/sftp 上傳備份包到伺服器，再輸入路徑。" >&2
 		echo "scp 範例: scp /本地/備份包.tar.gz root@你的伺服器:/tmp/" >&2
-		echo "提示：輸入檔案名稱時預設在備份目錄尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
+		echo "提示：輸入檔案名稱時預設在備份目錄中尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
 		read -e -p "請輸入備份檔名或路徑:" file_input
 		[ -z "$file_input" ] && { echo ""; return 0; }
 
@@ -12587,7 +12587,7 @@ EOF
 		fi
 
 		local archive_path
-		archive_path=$(openclaw_read_import_path "請輸入 OpenClaw 專案備份包路徑")
+		archive_path=$(openclaw_read_import_path "请输入 OpenClaw 项目备份包路径")
 		[ -z "$archive_path" ] && { echo "❌ 未輸入備份路徑"; break_end; return 1; }
 
 		local tmp_unpack
@@ -13057,13 +13057,13 @@ PY
 		fi
 		echo "✅ 已設定 includeDefaultMemory=false"
 		echo "建議立即執行：openclaw memory index --force"
-		read -e -p "是否立即執行 openclaw memory index --force？ (Y/n):" rebuild_choice
+		read -e -p "是否立即执行 openclaw memory index --force？ (Y/n):" rebuild_choice
 		if [[ ! "$rebuild_choice" =~ ^[Nn]$ ]]; then
 			openclaw memory index --force
 			echo ""
 			openclaw_memory_render_status
 		else
-			echo "可稍後在記憶管理中查看狀態。"
+			echo "可稍后在记忆管理中查看状态。"
 		fi
 		break_end
 	}
@@ -13258,7 +13258,7 @@ PY
 			openclaw_memory_render_status
 			echo "1. 更新記憶索引"
 			echo "2. 檢視記憶文件"
-			echo "3. 索引修復（Indexed 異常）"
+			echo "3. 索引修复（Indexed 异常）"
 			echo "4. 記憶方案（QMD/Local/Auto）"
 			echo "0. 返回上一級"
 			echo "---------------------------------------"
@@ -15085,7 +15085,7 @@ while true; do
 			ip_address
 			echo "已經安裝完成"
 			check_docker_app_ip
-			echo "初始使用者名稱密碼皆為: admin"
+			echo "初始使用者名稱密碼均為: admin"
 		}
 
 		docker_app_update() {
@@ -18293,7 +18293,7 @@ EOF
 						send_stats "SSH連接埠已修改"
 						new_ssh_port $new_port
 					elif [[ $new_port -eq 0 ]]; then
-						send_stats "退出SSH埠修改"
+						send_stats "退出SSH連接埠修改"
 						break
 					else
 						echo "連接埠號碼無效，請輸入1到65535之間的數字。"
@@ -18920,7 +18920,7 @@ EOF
 			  echo "TG-bot監控預警功能"
 			  echo "影片介紹: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
-			  echo "您需要設定tg機器人API和接收預警的使用者ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
+			  echo "您需要設定tg機器人API和接收預警的用戶ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
 			  echo "到達閾值後會向用戶發送預警訊息"
 			  echo -e "${gl_hui}-關於流量，重啟伺服器將重新計算-${gl_bai}"
 			  read -e -p "確定繼續嗎？ (Y/N):" choice
@@ -19348,7 +19348,7 @@ linux_file() {
 				send_stats "壓縮檔案/目錄"
 				;;
 			22) # 解压文件/目录
-				read -e -p "請輸入要解壓縮的檔案名稱 (.tar.gz):" filename
+				read -e -p "請輸入要解壓縮的檔名 (.tar.gz):" filename
 				install tar
 				tar -xzvf "$filename" && echo "已解壓縮$filename" || echo "解壓縮失敗"
 				send_stats "解壓縮檔案/目錄"
@@ -19760,7 +19760,7 @@ while true; do
 			CheckFirstRun_true
 			yinsiyuanquan2
 			cp -f ~/kejilion.sh /usr/local/bin/k > /dev/null 2>&1
-			echo -e "${gl_lv}腳本已更新到最新版本！${gl_huang}v$sh_v_new${gl_bai}"
+			echo -e "${gl_lv}腳本已更新至最新版本！${gl_huang}v$sh_v_new${gl_bai}"
 			send_stats "腳本已經最新$sh_v_new"
 			break_end
 			~/kejilion.sh
