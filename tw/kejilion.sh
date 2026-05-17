@@ -1492,7 +1492,7 @@ ssl_ps
 
 ssl_ps() {
 	echo -e "${gl_huang}已申請的證書到期情況${gl_bai}"
-	echo "站點資訊 證書到期時間"
+	echo "網站資訊 證書到期時間"
 	echo "------------------------"
 	for cert_dir in /etc/letsencrypt/live/*; do
 	  local cert_file="$cert_dir/fullchain.pem"
@@ -2227,7 +2227,7 @@ web_security() {
 					  sed -i "s/APIKEY00000/$cftoken/g" /etc/fail2ban/action.d/cloudflare-docker.conf
 					  f2b_status
 
-					  echo "已配置cloudflare模式，可在cf後台，站點-安全性-事件中查看攔截記錄"
+					  echo "已設定cloudflare模式，可在cf後台，網站-安全性-事件中查看攔截記錄"
 					  ;;
 
 				  22)
@@ -4163,7 +4163,7 @@ remote_port = ${remote_port}
 EOF
 
 	# 輸出產生的信息
-	echo "服務$service_name已成功加入 frpc.toml"
+	echo "服務$service_name已成功加入到 frpc.toml"
 
 	docker restart frpc
 
@@ -4779,7 +4779,7 @@ mkdir -p /etc/sysctl.d
 echo "net.core.default_qdisc=fq" > "$CONF"
 echo "net.ipv4.tcp_congestion_control=bbr" >> "$CONF"
 
-# 清理可能導致衝突的舊版 sysctl.conf 殘留
+# 清理可能導致衝突的舊版本 sysctl.conf 殘留
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf 2>/dev/null
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf 2>/dev/null
 
@@ -10400,7 +10400,7 @@ for name, provider in list(providers.items()):
     model_list = provider.get('models', [])
 
     if not base_url or not api_key or not isinstance(model_list, list) or not model_list:
-        summary.append(f'ℹ️ 跳过 {name}: 无 baseUrl/apiKey/models')
+        summary.append(f'ℹ️ 跳過 {name}: 無 baseUrl/apiKey/models')
         continue
 
     if api not in SUPPORTED_APIS:
@@ -10509,7 +10509,7 @@ for name, provider in list(providers.items()):
         provider['models'] = new_models
         changed = True
 
-    summary.append(f'✅ {name}: 刪除 {len(removed_ids)} 個，新增 {len(added_ids)} 個，目前 {len(new_models)} 個')
+    summary.append(f'✅ {name}: 删除 {len(removed_ids)} 个，新增 {len(added_ids)} 个，当前 {len(new_models)} 个')
 
 if fatal_errors:
     for line in summary:
@@ -10796,7 +10796,7 @@ EOF
 			echo
 		done
 
-		# 4. 协议探测（无感）
+		# 4. 協議探測（無感）
 		install curl >/dev/null 2>&1
 		openclaw_detect_api_protocol "$base_url" "$api_key"
 
@@ -11250,7 +11250,7 @@ PY2
 			echo "❌ 同步失敗：provider 配置不完整或類型不支持"
 			;;
 		4)
-			echo "❌ 同步失败：上游 /models 请求失败"
+			echo "❌ 同步失敗：上游 /models 請求失敗"
 			;;
 		5)
 			echo "❌ 同步失敗：上游模型為空或同步後無可用模型"
@@ -11353,7 +11353,7 @@ fix-openclaw-provider-protocol-interactive() {
 		return 1
 	fi
 
-	read -erp "请输入要修复协议的 API 名称(provider): " provider_name
+	read -erp "請輸入要修復協定的 API 名稱(provider):" provider_name
 	if [ -z "$provider_name" ]; then
 		echo "❌ provider 名稱不能為空"
 		break_end
@@ -11791,7 +11791,7 @@ PYTHON_EOF
 			echo ""
 			echo "🧠 記憶與 AI:"
 			echo "- [memory-core] # 基礎記憶 (文件檢索)"
-			echo "- [memory-lancedb] # 增強記憶 (向量資料庫)"
+			echo "  - [memory-lancedb]	# 增强记忆 (向量数据库)"
 			echo "- [copilot-proxy] # Copilot 介面轉發"
 			echo ""
 			echo "⚙️ 功能擴充:"
@@ -11919,7 +11919,7 @@ PYTHON_EOF
 			echo "gog # Google Workspace (Gmail/雲端盤/文件) 全能助手"
 			echo "things-mac # 深度整合 Things 3 任務管理"
 			echo "bluebubbles # 透過 BlueBubbles 完美收發 iMessage"
-			echo "himalaya # 終端郵件管理 (IMAP/SMTP 強力工具)"
+			echo "himalaya           # 终端邮件管理 (IMAP/SMTP 强力工具)"
 			echo "summarize # 網頁/播客/YouTube 影片內容一鍵總結"
 			echo "openhue # 控制 Philips Hue 智慧燈光場景"
 			echo "video-frames # 視訊抽幀與短片剪輯 (ffmpeg 驅動)"
@@ -11970,7 +11970,7 @@ PYTHON_EOF
 					fi
 
 					if [ "$skill_found" = true ]; then
-						read -e -p "技能 [$skill_name] 已安装，是否重新安装？ (y/N):" reinstall
+						read -e -p "技能 [$skill_name] 已安裝，是否重新安裝？ (y/N):" reinstall
 						if [[ ! "$reinstall" =~ ^[Yy]$ ]]; then
 							skipped_list="$skipped_list $skill_name"
 							continue
@@ -12230,7 +12230,7 @@ openclaw_json_get_bool() {
 				1)
 					read -e -p "請輸入TG機器人收到的連線碼 (例如 NYA99R2F)（輸入 0 退出）：" code
 					if [ "$code" = "0" ]; then continue; fi
-					if [ -z "$code" ]; then echo "錯誤：連接碼不能為空。"; sleep 1; continue; fi
+					if [ -z "$code" ]; then echo "错误：连接码不能为空。"; sleep 1; continue; fi
 					openclaw pairing approve telegram "$code"
 					break_end
 					;;
@@ -12377,7 +12377,7 @@ EOF
 		local real_type
 		real_type=$(grep '^TYPE=' "$pkg_dir/backup.meta" | head -n1 | cut -d'=' -f2-)
 		if [ "$real_type" != "$expected_type" ]; then
-			echo "❌ 备份类型不匹配，期望: $expected_type，實際: ${real_type:-未知}"
+			echo "❌ 備份類型不匹配，期望:$expected_type，實際: ${real_type:-未知}"
 			return 1
 		fi
 
@@ -12443,7 +12443,7 @@ EOF
 		echo "$prompt_text" >&2
 
 		echo "可先透過 scp/sftp 上傳備份包到伺服器，再輸入路徑。" >&2
-		echo "scp 範例: scp /本地/備份包.tar.gz root@你的伺服器:/tmp/" >&2
+		echo "scp 示例: scp /本地/备份包.tar.gz root@你的服务器:/tmp/" >&2
 		echo "提示：輸入檔案名稱時預設在備份目錄中尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
 		read -e -p "請輸入備份檔名或路徑:" file_input
 		[ -z "$file_input" ] && { echo ""; return 0; }
@@ -12587,7 +12587,7 @@ EOF
 		fi
 
 		local archive_path
-		archive_path=$(openclaw_read_import_path "请输入 OpenClaw 项目备份包路径")
+		archive_path=$(openclaw_read_import_path "請輸入 OpenClaw 專案備份包路徑")
 		[ -z "$archive_path" ] && { echo "❌ 未輸入備份路徑"; break_end; return 1; }
 
 		local tmp_unpack
@@ -12644,7 +12644,7 @@ EOF
 	openclaw_backup_detect_type() {
 		local file_name="$1"
 		if [[ "$file_name" == openclaw-memory-full-*.tar.gz ]]; then
-			echo "記憶備份文件"
+			echo "记忆备份文件"
 		elif [[ "$file_name" == openclaw-project-*.tar.gz ]]; then
 			echo "專案備份文件"
 		else
@@ -12748,7 +12748,7 @@ EOF
 			return 0
 		fi
 		if [ -z "$user_input" ]; then
-			echo "❌ 輸入不能為空。"
+			echo "❌ 输入不能为空。"
 			break_end
 			return 1
 		fi
@@ -12771,7 +12771,7 @@ EOF
 		fi
 
 		if [ ! -f "$target_path" ]; then
-			echo "❌ 目標檔案不存在:$target_path"
+			echo "❌ 目标文件不存在: $target_path"
 			break_end
 			return 1
 		fi
@@ -12785,7 +12785,7 @@ EOF
 		target_type=$(openclaw_backup_detect_type "$target_file")
 
 		echo "即將刪除: [$target_type] $target_path"
-		read -e -p "第一次確認：輸入 yes 確認繼續:" confirm_step1
+		read -e -p "第一次确认：输入 yes 确认继续: " confirm_step1
 		if [ "$confirm_step1" != "yes" ]; then
 			echo "已取消刪除。"
 			break_end
@@ -12821,7 +12821,7 @@ EOF
 		if [ $? -ne 0 ] || [ -z "$status_output" ]; then
 			echo "獲取狀態失敗"
 		else
-			status_lines=$(echo "$status_output" | grep -E "^(Provider|Vector|Indexed)" | head -n 3 | sed -e 's/^Provider: /底層方案: /' -e 's/^Vector: /向量庫狀態: /' -e 's/^Indexed: /已收錄文件: /')
+			status_lines=$(echo "$status_output" | grep -E "^(Provider|Vector|Indexed)" | head -n 3 | sed -e 's/^Provider: /底層方案: /' -e 's/^Vector: /向量库状态: /' -e 's/^Indexed: /已收錄文件: /')
 			if [ -z "$status_lines" ]; then
 				echo "未安裝/未啟動"
 			else
@@ -13005,12 +13005,12 @@ PY
 			echo "❌ 寫入配置失敗"
 			return 1
 		fi
-		echo "✅ 已更新記憶方案配置"
+		echo "✅ 已更新记忆方案配置"
 		return 0
 	}
 
 	openclaw_memory_offer_restart() {
-		echo "配置已寫入，需要重新啟動 OpenClaw 閘道後生效。"
+		echo "配置已写入，需要重启 OpenClaw 网关后生效。"
 		read -e -p "是否立即重新啟動 OpenClaw 網關？ (Y/n):" restart_choice
 		if [[ "$restart_choice" =~ ^[Nn]$ ]]; then
 			echo "已跳過重啟，可稍後執行: openclaw gateway restart"
@@ -13057,13 +13057,13 @@ PY
 		fi
 		echo "✅ 已設定 includeDefaultMemory=false"
 		echo "建議立即執行：openclaw memory index --force"
-		read -e -p "是否立即执行 openclaw memory index --force？ (Y/n):" rebuild_choice
+		read -e -p "是否立即執行 openclaw memory index --force？ (Y/n):" rebuild_choice
 		if [[ ! "$rebuild_choice" =~ ^[Nn]$ ]]; then
 			openclaw memory index --force
 			echo ""
 			openclaw_memory_render_status
 		else
-			echo "可稍后在记忆管理中查看状态。"
+			echo "可稍後在記憶管理中查看狀態。"
 		fi
 		break_end
 	}
@@ -13234,7 +13234,7 @@ PY
 			fi
 			openclaw_memory_file_collect
 			if [ ${#OPENCLAW_MEMORY_FILES[@]} -eq 0 ]; then
-				read -p "未找到記憶文件，按回車返回..."
+				read -p "未找到记忆文件，按回车返回..."
 				return 0
 			fi
 			local idx=$((file_choice-1))
@@ -13257,15 +13257,15 @@ PY
 			echo "======================================="
 			openclaw_memory_render_status
 			echo "1. 更新記憶索引"
-			echo "2. 檢視記憶文件"
-			echo "3. 索引修复（Indexed 异常）"
+			echo "2. 查看记忆文件"
+			echo "3. 索引修復（Indexed 異常）"
 			echo "4. 記憶方案（QMD/Local/Auto）"
 			echo "0. 返回上一級"
 			echo "---------------------------------------"
 			read -e -p "請輸入你的選擇:" memory_choice
 			case "$memory_choice" in
 				1)
-					echo "即將更新記憶索引。"
+					echo "即将更新记忆索引。"
 					read -e -p "第一次確認：輸入 yes 繼續:" confirm_step1
 					if [ "$confirm_step1" != "yes" ]; then
 						echo "已取消。"
@@ -13312,7 +13312,7 @@ PY
 			echo "---------------------------------------"
 			echo "1. 備份記憶全量"
 			echo "2. 還原記憶全量"
-			echo "3. 備份 OpenClaw 專案（預設安全模式）"
+			echo "3. 备份 OpenClaw 项目（默认安全模式）"
 			echo "4. 還原 OpenClaw 專案（進階/高風險）"
 			echo "5. 刪除備份文件"
 			echo "0. 返回上一級"
@@ -13363,7 +13363,7 @@ PY
 	}
 
 	nano_openclaw_json() {
-		send_stats "編輯 OpenClaw 設定檔"
+		send_stats "编辑 OpenClaw 配置文件"
 		install nano
 		nano ~/.openclaw/openclaw.json
 		start_gateway
@@ -13397,7 +13397,7 @@ PY
 		local local_ip token domains
 
 		echo "=================================="
-		echo "OpenClaw WebUI 存取位址"
+		echo "OpenClaw WebUI 访问地址"
 		local_ip="127.0.0.1"
 
 		token=$(
@@ -13411,7 +13411,7 @@ PY
 
 		domains=$(openclaw_find_webui_domain)
 		if [ -n "$domains" ]; then
-			echo "網域名稱地址："
+			echo "網域地址："
 			echo "$domains" | while read d; do
 				echo "https://${d}/#token=${token}"
 			done
@@ -13436,7 +13436,7 @@ PY
 		clear
 		echo "訪問地址:"
 		echo "https://${yuming}/#token=$token"
-		echo "先造訪URL觸發設備ID，然後回車下一步進行配對。"
+		echo "先访问URL触发设备ID，然后回车下一步进行配对。"
 		read
 		echo -e "${gl_kjlan}正在載入設備列表…${gl_bai}"
 		# 自動新增網域到 allowedOrigins
@@ -13474,7 +13474,7 @@ PY
 	# 主選單
 	openclaw_webui_menu() {
 
-		send_stats "WebUI存取與設定"
+		send_stats "WebUI访问与设置"
 		while true; do
 			clear
 			openclaw_show_webui_addr
