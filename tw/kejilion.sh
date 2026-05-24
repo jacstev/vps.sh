@@ -1221,7 +1221,7 @@ iptables_panel() {
 add_swap() {
 	local new_swap=$1  # 获取传入的参数
 
-	# 取得目前系統中所有的 swap 分割區
+	# 取得目前系統中所有的 swap 分區
 	local swap_partitions=$(grep -E '^/dev/' /proc/swaps | awk '{print $1}')
 
 	# 遍歷並刪除所有的 swap 分割區
@@ -1492,7 +1492,7 @@ ssl_ps
 
 ssl_ps() {
 	echo -e "${gl_huang}已申請的證書到期情況${gl_bai}"
-	echo "網站資訊 證書到期時間"
+	echo "站點資訊 證書到期時間"
 	echo "------------------------"
 	for cert_dir in /etc/letsencrypt/live/*; do
 	  local cert_file="$cert_dir/fullchain.pem"
@@ -3884,7 +3884,7 @@ ldnmp_web_status() {
 			2)
 				send_stats "克隆站點域名"
 				read -e -p "請輸入舊網域名稱:" oddyuming
-				read -e -p "請輸入新網域:" yuming
+				read -e -p "請輸入新網域名稱:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -3925,7 +3925,7 @@ ldnmp_web_status() {
 				send_stats "建立關聯站點"
 				echo -e "為現有的站點再關聯一個新網域用於訪問"
 				read -e -p "請輸入現有的網域名稱:" oddyuming
-				read -e -p "請輸入新網域:" yuming
+				read -e -p "請輸入新網域名稱:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -4163,7 +4163,7 @@ remote_port = ${remote_port}
 EOF
 
 	# 輸出產生的信息
-	echo "服務$service_name已成功加入到 frpc.toml"
+	echo "服務$service_name已成功加入 frpc.toml"
 
 	docker restart frpc
 
@@ -4779,7 +4779,7 @@ mkdir -p /etc/sysctl.d
 echo "net.core.default_qdisc=fq" > "$CONF"
 echo "net.ipv4.tcp_congestion_control=bbr" >> "$CONF"
 
-# 清理可能導致衝突的舊版本 sysctl.conf 殘留
+# 清理可能導致衝突的舊版 sysctl.conf 殘留
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf 2>/dev/null
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf 2>/dev/null
 
@@ -7091,7 +7091,7 @@ mount_partition() {
 		return 1
 	fi
 
-	echo "分割區已成功掛載到$MOUNT_POINT"
+	echo "分區已成功掛載到$MOUNT_POINT"
 
 	# 檢查 /etc/fstab 是否已經存在 UUID 或掛載點
 	if grep -qE "UUID=$UUID|[[:space:]]$MOUNT_POINT[[:space:]]" /etc/fstab; then
@@ -9764,7 +9764,7 @@ linux_ldnmp() {
 	  echo "-------------------------"
 	  ls -lt /home/*.gz | awk '{print $NF}'
 	  echo ""
-	  read -e -p  "回車鍵還原最新的備份，輸入備份檔案名稱還原指定的備份，輸入0退出：" filename
+	  read -e -p  "回車鍵還原最新的備份，輸入備份檔名還原指定的備份，輸入0退出：" filename
 
 	  if [ "$filename" == "0" ]; then
 		  break_end
@@ -10057,7 +10057,7 @@ moltbot_menu() {
 		echo "--------------------"
 		echo "16. 備份與還原"
 		echo "17. 更新"
-		echo "18. 卸載"
+		echo "18. 卸载"
 		echo "--------------------"
 		echo "0. 返回上一級選單"
 		echo "--------------------"
@@ -10509,7 +10509,7 @@ for name, provider in list(providers.items()):
         provider['models'] = new_models
         changed = True
 
-    summary.append(f'✅ {name}: 删除 {len(removed_ids)} 个，新增 {len(added_ids)} 个，当前 {len(new_models)} 个')
+    summary.append(f'✅ {name}: 刪除 {len(removed_ids)} 個，新增 {len(added_ids)} 個，目前 {len(new_models)} 個')
 
 if fatal_errors:
     for line in summary:
@@ -11153,7 +11153,7 @@ if err is not None:
     raise SystemExit(4)
 
 if not (isinstance(data, dict) and isinstance(data.get('data'), list)):
-    print(f'❌ {target}: /models 回傳結構不可識別')
+    print(f'❌ {target}: /models 返回结构不可识别')
     raise SystemExit(4)
 
 remote_ids = []
@@ -11791,7 +11791,7 @@ PYTHON_EOF
 			echo ""
 			echo "🧠 記憶與 AI:"
 			echo "- [memory-core] # 基礎記憶 (文件檢索)"
-			echo "  - [memory-lancedb]	# 增强记忆 (向量数据库)"
+			echo "- [memory-lancedb] # 增強記憶 (向量資料庫)"
 			echo "- [copilot-proxy] # Copilot 介面轉發"
 			echo ""
 			echo "⚙️ 功能擴充:"
@@ -11919,7 +11919,7 @@ PYTHON_EOF
 			echo "gog # Google Workspace (Gmail/雲端盤/文件) 全能助手"
 			echo "things-mac # 深度整合 Things 3 任務管理"
 			echo "bluebubbles # 透過 BlueBubbles 完美收發 iMessage"
-			echo "himalaya           # 终端邮件管理 (IMAP/SMTP 强力工具)"
+			echo "himalaya # 終端郵件管理 (IMAP/SMTP 強力工具)"
 			echo "summarize # 網頁/播客/YouTube 影片內容一鍵總結"
 			echo "openhue # 控制 Philips Hue 智慧燈光場景"
 			echo "video-frames # 視訊抽幀與短片剪輯 (ffmpeg 驅動)"
@@ -12230,7 +12230,7 @@ openclaw_json_get_bool() {
 				1)
 					read -e -p "請輸入TG機器人收到的連線碼 (例如 NYA99R2F)（輸入 0 退出）：" code
 					if [ "$code" = "0" ]; then continue; fi
-					if [ -z "$code" ]; then echo "错误：连接码不能为空。"; sleep 1; continue; fi
+					if [ -z "$code" ]; then echo "錯誤：連接碼不能為空。"; sleep 1; continue; fi
 					openclaw pairing approve telegram "$code"
 					break_end
 					;;
@@ -12443,7 +12443,7 @@ EOF
 		echo "$prompt_text" >&2
 
 		echo "可先透過 scp/sftp 上傳備份包到伺服器，再輸入路徑。" >&2
-		echo "scp 示例: scp /本地/备份包.tar.gz root@你的服务器:/tmp/" >&2
+		echo "scp 範例: scp /本地/備份包.tar.gz root@你的伺服器:/tmp/" >&2
 		echo "提示：輸入檔案名稱時預設在備份目錄中尋找；輸入含 / 的路徑時按完整路徑校驗。" >&2
 		read -e -p "請輸入備份檔名或路徑:" file_input
 		[ -z "$file_input" ] && { echo ""; return 0; }
@@ -12644,7 +12644,7 @@ EOF
 	openclaw_backup_detect_type() {
 		local file_name="$1"
 		if [[ "$file_name" == openclaw-memory-full-*.tar.gz ]]; then
-			echo "记忆备份文件"
+			echo "記憶備份文件"
 		elif [[ "$file_name" == openclaw-project-*.tar.gz ]]; then
 			echo "專案備份文件"
 		else
@@ -12748,7 +12748,7 @@ EOF
 			return 0
 		fi
 		if [ -z "$user_input" ]; then
-			echo "❌ 输入不能为空。"
+			echo "❌ 輸入不能為空。"
 			break_end
 			return 1
 		fi
@@ -12771,7 +12771,7 @@ EOF
 		fi
 
 		if [ ! -f "$target_path" ]; then
-			echo "❌ 目标文件不存在: $target_path"
+			echo "❌ 目標檔案不存在:$target_path"
 			break_end
 			return 1
 		fi
@@ -12785,7 +12785,7 @@ EOF
 		target_type=$(openclaw_backup_detect_type "$target_file")
 
 		echo "即將刪除: [$target_type] $target_path"
-		read -e -p "第一次确认：输入 yes 确认继续: " confirm_step1
+		read -e -p "第一次確認：輸入 yes 確認繼續:" confirm_step1
 		if [ "$confirm_step1" != "yes" ]; then
 			echo "已取消刪除。"
 			break_end
@@ -12821,7 +12821,7 @@ EOF
 		if [ $? -ne 0 ] || [ -z "$status_output" ]; then
 			echo "獲取狀態失敗"
 		else
-			status_lines=$(echo "$status_output" | grep -E "^(Provider|Vector|Indexed)" | head -n 3 | sed -e 's/^Provider: /底層方案: /' -e 's/^Vector: /向量库状态: /' -e 's/^Indexed: /已收錄文件: /')
+			status_lines=$(echo "$status_output" | grep -E "^(Provider|Vector|Indexed)" | head -n 3 | sed -e 's/^Provider: /底層方案: /' -e 's/^Vector: /向量庫狀態: /' -e 's/^Indexed: /已收錄文件: /')
 			if [ -z "$status_lines" ]; then
 				echo "未安裝/未啟動"
 			else
@@ -13005,12 +13005,12 @@ PY
 			echo "❌ 寫入配置失敗"
 			return 1
 		fi
-		echo "✅ 已更新记忆方案配置"
+		echo "✅ 已更新記憶方案配置"
 		return 0
 	}
 
 	openclaw_memory_offer_restart() {
-		echo "配置已写入，需要重启 OpenClaw 网关后生效。"
+		echo "配置已寫入，需要重新啟動 OpenClaw 閘道後生效。"
 		read -e -p "是否立即重新啟動 OpenClaw 網關？ (Y/n):" restart_choice
 		if [[ "$restart_choice" =~ ^[Nn]$ ]]; then
 			echo "已跳過重啟，可稍後執行: openclaw gateway restart"
@@ -13234,7 +13234,7 @@ PY
 			fi
 			openclaw_memory_file_collect
 			if [ ${#OPENCLAW_MEMORY_FILES[@]} -eq 0 ]; then
-				read -p "未找到记忆文件，按回车返回..."
+				read -p "未找到記憶文件，按回車返回..."
 				return 0
 			fi
 			local idx=$((file_choice-1))
@@ -13257,7 +13257,7 @@ PY
 			echo "======================================="
 			openclaw_memory_render_status
 			echo "1. 更新記憶索引"
-			echo "2. 查看记忆文件"
+			echo "2. 檢視記憶文件"
 			echo "3. 索引修復（Indexed 異常）"
 			echo "4. 記憶方案（QMD/Local/Auto）"
 			echo "0. 返回上一級"
@@ -13265,7 +13265,7 @@ PY
 			read -e -p "請輸入你的選擇:" memory_choice
 			case "$memory_choice" in
 				1)
-					echo "即将更新记忆索引。"
+					echo "即將更新記憶索引。"
 					read -e -p "第一次確認：輸入 yes 繼續:" confirm_step1
 					if [ "$confirm_step1" != "yes" ]; then
 						echo "已取消。"
@@ -13312,7 +13312,7 @@ PY
 			echo "---------------------------------------"
 			echo "1. 備份記憶全量"
 			echo "2. 還原記憶全量"
-			echo "3. 备份 OpenClaw 项目（默认安全模式）"
+			echo "3. 備份 OpenClaw 專案（預設安全模式）"
 			echo "4. 還原 OpenClaw 專案（進階/高風險）"
 			echo "5. 刪除備份文件"
 			echo "0. 返回上一級"
@@ -13363,7 +13363,7 @@ PY
 	}
 
 	nano_openclaw_json() {
-		send_stats "编辑 OpenClaw 配置文件"
+		send_stats "編輯 OpenClaw 設定檔"
 		install nano
 		nano ~/.openclaw/openclaw.json
 		start_gateway
@@ -13397,7 +13397,7 @@ PY
 		local local_ip token domains
 
 		echo "=================================="
-		echo "OpenClaw WebUI 访问地址"
+		echo "OpenClaw WebUI 存取位址"
 		local_ip="127.0.0.1"
 
 		token=$(
@@ -13436,7 +13436,7 @@ PY
 		clear
 		echo "訪問地址:"
 		echo "https://${yuming}/#token=$token"
-		echo "先访问URL触发设备ID，然后回车下一步进行配对。"
+		echo "先造訪URL觸發設備ID，然後回車下一步進行配對。"
 		read
 		echo -e "${gl_kjlan}正在載入設備列表…${gl_bai}"
 		# 自動新增網域到 allowedOrigins
@@ -13474,7 +13474,7 @@ PY
 	# 主選單
 	openclaw_webui_menu() {
 
-		send_stats "WebUI访问与设置"
+		send_stats "WebUI存取與設定"
 		while true; do
 			clear
 			openclaw_show_webui_addr
@@ -15085,7 +15085,7 @@ while true; do
 			ip_address
 			echo "已經安裝完成"
 			check_docker_app_ip
-			echo "初始使用者名稱密碼均為: admin"
+			echo "初始使用者名稱密碼皆為: admin"
 		}
 
 		docker_app_update() {
@@ -17369,7 +17369,7 @@ discourse,yunsou,ahhhhfs,nsgame,gying" \
 	  	echo "-------------------------"
 	  	ls -lt /app*.gz | awk '{print $NF}'
 	  	echo ""
-	  	read -e -p  "回車鍵還原最新的備份，輸入備份檔案名稱還原指定的備份，輸入0退出：" filename
+	  	read -e -p  "回車鍵還原最新的備份，輸入備份檔名還原指定的備份，輸入0退出：" filename
 
 	  	if [ "$filename" == "0" ]; then
 			  break_end
@@ -18293,7 +18293,7 @@ EOF
 						send_stats "SSH連接埠已修改"
 						new_ssh_port $new_port
 					elif [[ $new_port -eq 0 ]]; then
-						send_stats "退出SSH連接埠修改"
+						send_stats "退出SSH埠修改"
 						break
 					else
 						echo "連接埠號碼無效，請輸入1到65535之間的數字。"
@@ -18920,7 +18920,7 @@ EOF
 			  echo "TG-bot監控預警功能"
 			  echo "影片介紹: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
-			  echo "您需要設定tg機器人API和接收預警的用戶ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
+			  echo "您需要設定tg機器人API和接收預警的使用者ID，即可實現本機CPU，內存，硬碟，流量，SSH登入的即時監控預警"
 			  echo "到達閾值後會向用戶發送預警訊息"
 			  echo -e "${gl_hui}-關於流量，重啟伺服器將重新計算-${gl_bai}"
 			  read -e -p "確定繼續嗎？ (Y/N):" choice
@@ -19760,7 +19760,7 @@ while true; do
 			CheckFirstRun_true
 			yinsiyuanquan2
 			cp -f ~/kejilion.sh /usr/local/bin/k > /dev/null 2>&1
-			echo -e "${gl_lv}腳本已更新至最新版本！${gl_huang}v$sh_v_new${gl_bai}"
+			echo -e "${gl_lv}腳本已更新到最新版本！${gl_huang}v$sh_v_new${gl_bai}"
 			send_stats "腳本已經最新$sh_v_new"
 			break_end
 			~/kejilion.sh
