@@ -3228,7 +3228,7 @@ f2b_basic_config() {
 
 	local jail_name="sshd"
 	if grep -qi 'Alpine' /etc/issue 2>/dev/null; then
-		# Alpine 默认 jail 通常为 sshd；仅当检测到自定义 alpine-sshd 规则时才切换
+		# Alpine 預設 jail 通常為 sshd；僅當偵測到自訂 alpine-sshd 規則時才切換
 		if [ -f /etc/fail2ban/filter.d/alpine-sshd.conf ] || [ -f /etc/fail2ban/jail.d/alpine-ssh.conf ] || [ -f /etc/fail2ban/jail.d/alpine-sshd.local ]; then
 			jail_name="alpine-sshd"
 		fi
@@ -4163,7 +4163,7 @@ remote_port = ${remote_port}
 EOF
 
 	# 輸出產生的信息
-	echo "服務$service_name已成功加入 frpc.toml"
+	echo "服務$service_name已成功加入到 frpc.toml"
 
 	docker restart frpc
 
@@ -6030,7 +6030,7 @@ _kernel_optimize_core() {
 			;;
 	esac
 
-	# ── 根据内存大小自适应调整 ──
+	# ── 根據記憶體大小自適應調整 ──
 	if [ "$MEM_MB" -ge 16384 ]; then
 		MIN_FREE_KB=131072
 		[ "$scene" != "balanced" ] && SWAPPINESS=5
@@ -6102,7 +6102,7 @@ net.ipv4.tcp_slow_start_after_idle = 0"
 	# ── 寫入設定檔（持久化） ──
 	echo -e "${gl_lv}寫入優化配置...${gl_bai}"
 	cat > "$CONF" << SYSCTL
-# kejilion 内核调优配置
+# kejilion 核心調優配置
 # 模式: $mode_name | 場景: $scene
 # 記憶體: ${MEM_MB}MB | 產生時間: $(date '+%Y-%m-%d %H:%M:%S')
 
@@ -6123,7 +6123,7 @@ net.core.somaxconn = $SOMAXCONN
 net.core.netdev_max_backlog = $BACKLOG
 net.ipv4.tcp_max_syn_backlog = $SYN_BACKLOG
 
-# ── TCP 连接优化 ──
+# ── TCP 連線最佳化 ──
 net.ipv4.tcp_fastopen = 3
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_fin_timeout = $FIN_TIMEOUT
@@ -6297,7 +6297,7 @@ Kernel_optimize() {
 	  echo -e "2. 均衡最佳化模式： 在效能與資源消耗之間取得平衡，適合日常使用。"
 	  echo -e "3. 網站最佳化模式： 針對網站伺服器最佳化，超高並發連線佇列。"
 	  echo -e "4. 直播最佳化模式： 針對直播推流優化，UDP 緩衝區加大，減少延遲。"
-	  echo -e "5. 游戏服优化模式：     针对游戏服务器优化，低延迟优先。"
+	  echo -e "5. 遊戲服最佳化模式： 針對遊戲伺服器最佳化，低延遲優先。"
 	  echo -e "6. 還原預設設定： 將系統設定還原為預設配置。"
 	  echo -e "7. 自動調優： 依測試資料自動調優核心參數。${gl_huang}★${gl_bai}"
 	  echo "--------------------"
@@ -6815,7 +6815,7 @@ kj_ssh_parse_remote() {
 	fi
 
 	if ! kj_ssh_validate_host "$remote_host"; then
-		echo "错误: SSH 主机地址格式不正确。"
+		echo "錯誤: SSH 主機位址格式不正確。"
 		return 1
 	fi
 
@@ -8229,7 +8229,7 @@ docker_ssh_migration() {
 		read -e -p  "請輸入要遷移的備份目錄:" BACKUP_DIR
 		[[ ! -d "$BACKUP_DIR" ]] && { echo -e "${gl_hong}備份目錄不存在${gl_bai}"; return; }
 
-		kj_ssh_read_host_user_port "目標伺服器IP:" "目标服务器SSH用户名 [默认root]: " "目標伺服器SSH連接埠 [預設22]:" "root" "22"
+		kj_ssh_read_host_user_port "目標伺服器IP:" "目標伺服器SSH用戶名 [預設root]:" "目標伺服器SSH連接埠 [預設22]:" "root" "22"
 		local TARGET_IP="$KJ_SSH_HOST"
 		local TARGET_USER="$KJ_SSH_USER"
 		local TARGET_PORT="$KJ_SSH_PORT"
@@ -10427,7 +10427,7 @@ for name, provider in list(providers.items()):
                 send_stat('OpenClaw API刪失敗Provider-確認')
                 summary.append(f'✅ {name}: 使用者已確認刪除該 provider 及全部相關模型引用')
         else:
-            send_stat('OpenClaw API删失败Provider-拒绝')
+            send_stat('OpenClaw API刪失敗Provider-拒絕')
             summary.append(f'ℹ️ {name}: 使用者未確認刪除，保留現有 provider 配置')
         continue
 
@@ -10529,7 +10529,7 @@ if changed:
 else:
     for line in summary:
         print(line)
-    print('ℹ️ 无需同步：配置已与上游 /models 保持一致')
+    print('ℹ️ 無需同步：配置已與上游 /models 保持一致')
 PY
 	}
 
@@ -10677,7 +10677,7 @@ PY
 			[[ $first == false ]] && models_array+=","
 			first=false
 
-			# context 和 max_tokens 全拉满，不怕大
+			# context 和 max_tokens 全拉滿，不怕大
 			local context_window=1048576
 			local max_tokens=128000
 
@@ -10890,7 +10890,7 @@ openclaw_api_manage_list() {
 					unchecked) latency_color="$gl_bai" ;;
 				esac
 
-				printf '%b\n' "[$idx] ${name} | API: ${base_url}| 協議:${api_type} | 模型数量: ${gl_huang}${model_count}${gl_bai}| 延遲/狀態:${latency_color}${latency_txt}${gl_bai}"
+				printf '%b\n' "[$idx] ${name} | API: ${base_url}| 協議:${api_type}| 模型數量:${gl_huang}${model_count}${gl_bai}| 延遲/狀態:${latency_color}${latency_txt}${gl_bai}"
 				;;
 		esac
 	done < <(python3 - "$config_file" <<-'PY'
@@ -11256,7 +11256,7 @@ PY2
 			echo "❌ 同步失敗：上游模型為空或同步後無可用模型"
 			;;
 		*)
-			echo "❌ 同步失败：请检查配置文件结构或日志输出"
+			echo "❌ 同步失敗：請檢查設定檔結構或日誌輸出"
 			;;
 	esac
 
@@ -11875,7 +11875,7 @@ PYTHON_EOF
 					if openclaw plugins uninstall "$plugin_id"; then
 						echo "✅ 已卸載:$plugin_id"
 					else
-						echo "⚠️ 卸载失败，可能为预装插件，仅禁用: $plugin_id"
+						echo "⚠️ 卸載失敗，可能為預先安裝插件，僅停用:$plugin_id"
 					fi
 					sync_openclaw_plugin_denylist "$plugin_id" >/dev/null 2>&1
 					success_list="$success_list $plugin_id"
@@ -12218,7 +12218,7 @@ openclaw_json_get_bool() {
 			echo "========================================"
 			openclaw_show_bot_local_status_block
 			echo "----------------------------------------"
-			echo "1. Telegram 机器人对接"
+			echo "1. Telegram 機器人對接"
 			echo "2. 飛書 (Lark) 機器人對接"
 			echo "3. WhatsApp 機器人對接"
 			echo "----------------------------------------"
@@ -12458,7 +12458,7 @@ EOF
 		fi
 
 		if [ ! -f "$file_path" ]; then
-			echo "❌ 备份文件不存在: $file_path" >&2
+			echo "❌ 備份檔不存在:$file_path" >&2
 			echo ""
 			return 1
 		fi
@@ -12784,7 +12784,7 @@ EOF
 
 		target_type=$(openclaw_backup_detect_type "$target_file")
 
-		echo "即将删除: [$target_type] $target_path"
+		echo "即將刪除: [$target_type] $target_path"
 		read -e -p "第一次確認：輸入 yes 確認繼續:" confirm_step1
 		if [ "$confirm_step1" != "yes" ]; then
 			echo "已取消刪除。"
@@ -13181,7 +13181,7 @@ PY
 		local start_line count
 		echo "文件:$file"
 		echo "總行數:$total_lines"
-		read -e -p "请输入起始行（回车默认末尾 $default_lines行）:" start_line
+		read -e -p "請輸入起始行（回車預設末尾$default_lines行）:" start_line
 		read -e -p "請輸入顯示行數（回車預設$default_lines）: " count
 		[ -z "$count" ] && count=$default_lines
 		if [ -z "$start_line" ]; then
@@ -13411,7 +13411,7 @@ PY
 
 		domains=$(openclaw_find_webui_domain)
 		if [ -n "$domains" ]; then
-			echo "網域地址："
+			echo "網域名稱地址："
 			echo "$domains" | while read d; do
 				echo "https://${d}/#token=${token}"
 			done
@@ -15085,7 +15085,7 @@ while true; do
 			ip_address
 			echo "已經安裝完成"
 			check_docker_app_ip
-			echo "初始使用者名稱密碼均為: admin"
+			echo "初始使用者名稱密碼皆為: admin"
 		}
 
 		docker_app_update() {
@@ -17408,7 +17408,7 @@ discourse,yunsou,ahhhhfs,nsgame,gying" \
 		if [ -f "$custom_app" ]; then
 			. "$custom_app"
 		else
-			echo -e "${gl_hong}错误: 未找到编号为 ${sub_choice}的應用程式配置${gl_bai}"
+			echo -e "${gl_hong}錯誤: 未找到編號為${sub_choice}的應用程式配置${gl_bai}"
 		fi
 		  ;;
 	esac
@@ -17675,7 +17675,7 @@ fail2ban_panel() {
 				echo "2. 查看SSH攔截記錄"
 				echo "3. 日誌即時監控"
 				echo "------------------------"
-				echo "4. 基础参数配置（封禁时长/时间窗口/重试次数）"
+				echo "4. 基礎參數配置（封禁時間/時間視窗/重試次數）"
 				echo "5. 編輯設定檔（nano）"
 				echo "------------------------"
 				echo "9. 卸載防禦程序"
@@ -19271,7 +19271,7 @@ linux_file() {
 		echo "1. 進入目錄 2. 建立目錄 3. 修改目錄權限 4. 重新命名目錄"
 		echo "5. 刪除目錄 6. 返回上一層選單目錄"
 		echo "------------------------"
-		echo "11. 建立文件 12. 編輯文件 13. 修改文件權限 14. 重新命名文件"
+		echo "11. 建立檔案 12. 編輯檔案 13. 修改檔案權限 14. 重新命名文件"
 		echo "15. 刪除文件"
 		echo "------------------------"
 		echo "21. 壓縮檔案目錄 22. 解壓縮檔案目錄 23. 行動檔案目錄 24. 複製檔案目錄"
